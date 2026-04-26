@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Review this part and modify it to your liking -->
-    <meta name="description" content="Sample text for portfolio template meta tag">
-    <meta name="keywords" content="Sample text for portfolio template meta tag">
-    <meta name="author" content="Sample text for portfolio template meta tag">
+    <meta name="description" content="Weird Virgy Portfolio">
+    <meta name="keywords" content="Water Wastewater Engineer">
+    <meta name="author" content="Lefan Virginia Wang">
     <title>My portfolio website</title>
     <!-- Adding favicon for older and modern browsers,
         It is best to add favicon to the main folder, 
@@ -32,6 +32,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400&display=swap" rel="stylesheet">
+    <!-- Map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 </head>
 
 <body>
@@ -64,11 +66,14 @@
         </section>
     </header>
     
-   
+    <!-- projects -->
     <section>
         <h3 class="main-title center padding">Projects</h3>
+        <section class="w-900 padding">
+            <div id="texas-map"></div>
         </section>
     </section>
+
 
     <!-- contact me -->
     <!-- Five logo can be in one row, and if it still not enough, you can create another row, buy doubleing the "box-contact" section -->
@@ -87,7 +92,6 @@
                     <a href="https://github.com/WeirdVirgy" target="_blank"><img class="logo" src="assets/github.png" alt=""></a>
                 </span>
                 <span>
-                    <!-- <a href="mailto:xy@gmail.com" target="_blank"><img class="logo" src="assets/email.png" alt=""></a>-->
                 </span>
             </section>
         </section>
@@ -97,6 +101,75 @@
     <!-- footer -->
     <!-- waits for you to take over! -->
     <footer>@iluskaland 2024</footer>
+
+    <!-- leaflet map js -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    
+    <!-- texas project map -->
+    <script>
+        const projects = [
+            {
+                number: "2502146",
+                name: "El Paso Water McGregor Pump Station",
+                year: "2025",
+                capacity: "2 MGD",
+                treatment: "N/A",
+                coords: [31.955, -106.430]
+            },
+            {
+                number: "2500300",
+                name: "Celina New Water Wells",
+                year: "2025",
+                capacity: "2.6 MGD",
+                treatment: "N/A",
+                coords: [33.324, -96.789]
+            },
+            {
+                number: "2401680",
+                name: "GVSUD Santa Clara WRRF Package Plant",
+                year: "2025",
+                capacity: "0.5 MGD",
+                treatment: "Conventional",
+                coords: [29.562, -97.972]
+            },
+            {
+                number: "21W05325",
+                name: "Sherman Water Treatment Plant Expansion",
+                year: "2025",
+                capacity: "5 MGD",
+                treatment: "UF/RO",
+                coords: [33.670, -96.609]
+            }
+        ];
+
+        const map = L.map("texas-map").setView([31.2, -99.3], 6);
+
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            attribution: "© OpenStreetMap"
+        }).addTo(map);
+
+        const projectPin = L.icon({
+            iconUrl: "assets/map-pin.png",
+            iconSize: [40, 40],
+            iconAnchor: [20, 40],
+            popupAnchor: [0, -40]
+        });
+
+        projects.forEach(project => {
+            L.marker(project.coords, { icon: projectPin })
+                .addTo(map)
+                .bindPopup(`
+                    <b>${project.name}</b><br><br>
+                    Project #: ${project.number}<br>
+                    Year: ${project.year}<br>
+                    Capacity: ${project.capacity}<br>
+                    Treatment: ${project.treatment}
+                `);
+        });
+
+        
+    </script>    
 </body>
 
 </html>
